@@ -27,6 +27,7 @@ public class SQLiteManager extends SQLiteOpenHelper
     private static final String DESC_FIELD = "desc";
     private static final String IMAGE_FIELD = "image";
     private static final String DATE_FIELD = "date";
+    private static final String DURATION_FIELD = "duration";
     private static final String DELETED_FIELD = "deleted";
 
     @SuppressLint("SimpleDateFormat")
@@ -65,6 +66,8 @@ public class SQLiteManager extends SQLiteOpenHelper
                 .append(" BLOG, ")
                 .append(DATE_FIELD)
                 .append(" TEXT, ")
+                .append(DURATION_FIELD)
+                .append(" TEXT, ")
                 .append(DELETED_FIELD)
                 .append(" TEXT)");
 
@@ -93,6 +96,7 @@ public class SQLiteManager extends SQLiteOpenHelper
         contentValues.put(DESC_FIELD, note.getDescription());
         contentValues.put(IMAGE_FIELD, note.getImage());
         contentValues.put(DATE_FIELD, note.getDate());
+        contentValues.put(DURATION_FIELD, note.getDuration());
         contentValues.put(DELETED_FIELD, getStringFromDate(note.getDeleted()));
 
         sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
@@ -113,9 +117,10 @@ public class SQLiteManager extends SQLiteOpenHelper
                     String desc = result.getString(3);
                     byte[] image=result.getBlob(4);
                     String date = result.getString(5);
-                    String stringDeleted = result.getString(6);
+                    String duration = result.getString(6);
+                    String stringDeleted = result.getString(7);
                     Date deleted = getDateFromString(stringDeleted);
-                    Note note = new Note(id,title,desc,image,date,deleted);
+                    Note note = new Note(id,title,desc,image,date,duration,deleted);
                     Note.noteArrayList.add(note);
                 }
             }
@@ -129,8 +134,9 @@ public class SQLiteManager extends SQLiteOpenHelper
         contentValues.put(ID_FIELD, note.getId());
         contentValues.put(TITLE_FIELD, note.getTitle());
         contentValues.put(DESC_FIELD, note.getDescription());
-        contentValues.put(DATE_FIELD, note.getDate());
         contentValues.put(IMAGE_FIELD, note.getImage());
+        contentValues.put(DATE_FIELD, note.getDate());
+        contentValues.put(DURATION_FIELD, note.getDuration());
         contentValues.put(DELETED_FIELD, getStringFromDate(note.getDeleted()));
 
         sqLiteDatabase.update(TABLE_NAME, contentValues, ID_FIELD + " =? ", new String[]{String.valueOf(note.getId())});

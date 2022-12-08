@@ -73,17 +73,20 @@
         android:textStyle="bold"
         android:layout_gravity="center"/>
 
-    <EditText
-        android:id="@+id/descriptionEditText"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:layout_marginTop="20dp"
-        android:minLines="3"
-        android:textColor="@color/darkGray"
-        android:layout_gravity="center"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="@string/select"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+            <AutoCompleteTextView
+                android:id="@+id/auto_complete_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
+        <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -105,6 +108,29 @@
         style="?android:spinnerStyle"
         android:layout_marginTop="10dp"
         android:onClick="openDatePicker"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:textSize="25sp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/darkGray"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/timeButton"
+            android:onClick="popTimePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Time"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textSize="30sp"
+            android:width="300dp"
+            android:height="80dp"
+             />
 
 
     <ImageView
