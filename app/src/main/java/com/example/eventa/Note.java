@@ -12,7 +12,10 @@ public class Note {
     private String title;
     private String description;
     private byte[] image;
+    private String Date ;
     private Date deleted;
+
+
 
     public Note(int id, String title, String description, Date deleted) {
         this.id = id;
@@ -21,27 +24,23 @@ public class Note {
         this.deleted = deleted;
     }
 
-    public Note(int id, String title, String description, byte[] image, Date deleted) {
+    public Note(int id, String title, String description, byte[] image,String date, Date deleted) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.image = image;
+        this.Date=date;
         this.deleted = deleted;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
 
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
 
-    public Note(int id, String title, String description, byte[] image) {
+    public Note(int id, String title, String description, byte[] image,String date) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.image = image;
+        this.Date=date;
         deleted = null;
     }
 
@@ -105,5 +104,21 @@ public class Note {
 
     public void setDeleted(Date deleted) {
         this.deleted = deleted;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
     }
 }
