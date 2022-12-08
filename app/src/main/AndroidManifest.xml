@@ -41,6 +41,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <receiver android:name=".MyNotificationPublisher"/>
     </application>
 
 </manifest>

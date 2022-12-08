@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -23,12 +26,37 @@ public class MainActivity extends AppCompatActivity
         loadFromDBToMemory();
         setNoteAdapter();
         setOnClickListener();
+        initSearchwidgets();
     }
 
 
     private void initWidgets()
     {
         noteListView = findViewById(R.id.noteListView);
+    }
+
+    private void initSearchwidgets(){
+        SearchView searchView =(SearchView) findViewById(R.id.noteListSearchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                ArrayList<Note> filteredNotes =new ArrayList<Note>();
+                for(Note note: Note.noteArrayList){
+                    if(note.getTitle().toLowerCase().contains(s.toLowerCase())){
+                        filteredNotes.add(note);
+                    }
+                }
+                NoteAdapter adapter =new NoteAdapter(getApplicationContext(), filteredNotes);
+                noteListView.setAdapter(adapter);
+
+                return false;
+            }
+        });
     }
 
     private void loadFromDBToMemory()

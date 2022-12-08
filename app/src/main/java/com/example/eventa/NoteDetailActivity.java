@@ -3,11 +3,16 @@ package com.example.eventa;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -16,6 +21,7 @@ import android.graphics.drawable.BitmapDrawable;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,7 +45,7 @@ import java.util.Locale;
 public class NoteDetailActivity extends AppCompatActivity {
 
     private EditText titleEditText, descEditText;
-    private Button deleteButton ,btnChoose,dateButton,timeButton;
+    private Button deleteButton ,btnChoose,dateButton,timeButton,saveButton;
     private Note selectedNote;
     private ImageView imageView;
     private DatePickerDialog datePickerDialog;
@@ -48,6 +54,8 @@ public class NoteDetailActivity extends AppCompatActivity {
     AutoCompleteTextView autoCompleteTxt;
     ArrayAdapter<String> adapterItems;
 
+    public static String NOTIFICATION_CHANNEL_ID ="1001";
+    public static String default_notification_id ="default";
 
     final int REQUEST_CODE_GALLERY = 999;
 
@@ -81,6 +89,33 @@ public class NoteDetailActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Item: "+item,Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
+    }
+
+    //schedule notification
+    private void scheduleNotification (Notification notification, int delay) {
+        Intent notificationIntent = new Intent(this, MyNotificationPublisher.class);
+        notificationIntent.putExtra(MyNotificationPublisher.NOTIFICATIONID,1);
+        notificationIntent.putExtra (MyNotificationPublisher.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        long futureMillis= SystemClock.elapsedRealtime()+delay;
+        AlarmManager alarmManager =(AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        assert alarmManager !=null;
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureMillis, pendingIntent);
+    }
+
+
+
+private Notification getNotification(String title,String content){
+        NotificationCompat.Builder builder = new NotificationCompat. Builder(this, default_notification_id);
+        builder.setContentTitle(title);
+        builder.setContentText (content);
+        builder.setSmallIcon(R.drawable.ic_launcher_foreground);
+        builder.setAutoCancel(true);
+        builder.setChannelId(NOTIFICATION_CHANNEL_ID);
+        return builder.build();
     }
 
     @Override
@@ -124,7 +159,7 @@ public class NoteDetailActivity extends AppCompatActivity {
     private void initWidgets()
     {
         titleEditText = findViewById(R.id.titleEditText);
-        descEditText = findViewById(R.id.descriptionEditText);
+        /*descEditText = findViewById(R.id.descriptionEditText);*/
         autoCompleteTxt = findViewById(R.id.auto_complete_txt);
         deleteButton = findViewById(R.id.deleteNoteButton);
         btnChoose = (Button) findViewById(R.id.btnChoose);
@@ -132,6 +167,7 @@ public class NoteDetailActivity extends AppCompatActivity {
         dateButton = findViewById(R.id.datePickerButton);
         dateButton.setText(getTodaysDate());
         timeButton = findViewById(R.id.timeButton);
+        saveButton =findViewById(R.id.saveButton);
 
     }
 
@@ -254,6 +290,7 @@ public class NoteDetailActivity extends AppCompatActivity {
             Note.noteArrayList.add(newNote);
             sqLiteManager.addNoteToDatabase(newNote);
             Toast.makeText(getApplicationContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
+            scheduleNotification(getNotification(newNote.getTitle()+" event","Le "+newNote.getDate()+" à "+newNote.getDuration()),5000);
 
         }
         else
@@ -264,7 +301,9 @@ public class NoteDetailActivity extends AppCompatActivity {
             selectedNote.setDate(date);
             sqLiteManager.updateNoteInDB(selectedNote);
         }
+
         finish();
+
 
     }
 
