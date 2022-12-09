@@ -22,6 +22,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
@@ -285,12 +286,26 @@ private Notification getNotification(String title,String content){
 
         if(selectedNote == null)
         {
+            if(TextUtils.isEmpty(titleEditText.getText().toString())  ){
+                Toast.makeText(NoteDetailActivity.this,"title is empty !",Toast.LENGTH_SHORT).show();
+            }else if(TextUtils.isEmpty(autoCompleteTxt.getText().toString())){
+                Toast.makeText(NoteDetailActivity.this,"Please choose a type  !",Toast.LENGTH_SHORT).show();
+        }else if(TextUtils.isEmpty(timeButton.getText().toString())){
+                Toast.makeText(NoteDetailActivity.this,"Please set a time  !",Toast.LENGTH_SHORT).show();
+            }
+            else if(TextUtils.isEmpty(btnChoose.getText().toString())){
+                Toast.makeText(NoteDetailActivity.this,"Please choose an image  !",Toast.LENGTH_SHORT).show();
+            }
+
+            else{
             int id = Note.noteArrayList.size();
             Note newNote = new Note(id, title, type, image,date,duration);
             Note.noteArrayList.add(newNote);
             sqLiteManager.addNoteToDatabase(newNote);
             Toast.makeText(getApplicationContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
             scheduleNotification(getNotification(newNote.getTitle()+" event","Le "+newNote.getDate()+" à "+newNote.getDuration()),5000);
+                finish();
+            }
 
         }
         else
@@ -300,9 +315,10 @@ private Notification getNotification(String title,String content){
             selectedNote.setImage(image);
             selectedNote.setDate(date);
             sqLiteManager.updateNoteInDB(selectedNote);
+            finish();
         }
 
-        finish();
+
 
 
     }
