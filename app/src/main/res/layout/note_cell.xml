@@ -5,12 +5,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:padding="15dp"
-    android:layout_height="100dp">
+    android:layout_height="130dp">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="105dp"
-        android:layout_height="90dp"
+        android:layout_height="110dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -34,10 +34,31 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:maxLines="1"
-        android:text="Description"
+        android:text="type"
         android:textColor="@color/darkGray"
         android:textSize="20sp" />
 
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:layout_below="@+id/cellDesc"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        android:layout_toRightOf="@+id/date"
+        android:layout_below="@+id/cellDesc"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="20sp"/>
 
 
 </RelativeLayout>

@@ -15,6 +15,13 @@
         android:theme="@style/Theme.EventApp"
         tools:targetApi="31">
         <activity
+            android:name=".EventActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".page3"
             android:exported="false">
             <meta-data
@@ -41,7 +48,8 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <receiver android:name=".MyNotificationPublisher"/>
+
+        <receiver android:name=".MyNotificationPublisher" />
     </application>
 
 </manifest>

@@ -32,6 +32,8 @@ public class NoteAdapter extends ArrayAdapter<Note> {
 
         TextView title = convertView.findViewById(R.id.cellTitle);
         TextView desc = convertView.findViewById(R.id.cellDesc);
+        TextView date = convertView.findViewById(R.id.date);
+        TextView time = convertView.findViewById(R.id.time);
         ImageView image = convertView.findViewById(R.id.imageView);
 
         title.setText(note.getTitle());
@@ -39,6 +41,8 @@ public class NoteAdapter extends ArrayAdapter<Note> {
         byte[] noteImage = note.getImage();
         Bitmap bitmap = BitmapFactory.decodeByteArray(noteImage, 0, noteImage.length);
         image.setImageBitmap(bitmap);
+        date.setText(note.getDate());
+        time.setText(note.getDuration());
 
         return convertView;
     }

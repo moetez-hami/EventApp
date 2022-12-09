@@ -44,13 +44,13 @@ import java.util.Locale;
 
 public class NoteDetailActivity extends AppCompatActivity {
 
-    private EditText titleEditText, descEditText;
+    private EditText titleEditText;
     private Button deleteButton ,btnChoose,dateButton,timeButton,saveButton;
     private Note selectedNote;
     private ImageView imageView;
     private DatePickerDialog datePickerDialog;
     int hour, minute;
-    String[] items =  {"Material","Design","Components","Android","5.0 Lollipop"};
+    String[] items =  {"Journée d’étude","Séminaire","Festival","Evénement sportif"};
     AutoCompleteTextView autoCompleteTxt;
     ArrayAdapter<String> adapterItems;
 

@@ -1,54 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
+    <!--<include
+        android:id="@+id/mytoolbar"
+        layout="@layout/toolbar"/>
+-->
+    <ImageView
+        android:id="@+id/fragment_second"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="?actionBarSize"
-        android:theme="?actionBarTheme"
-        android:background="@color/darkGray">
+        android:background="@drawable/evenement"/>
+    <TextView
+        android:id="@+id/jardin_festif"
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="NOTES"
-            android:textSize="35sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+"
-            android:textSize="35sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_gravity="end"
-            android:onClick="newNote"/>
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <SearchView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/noteListSearchView"
-        android:iconifiedByDefault="false"
-        android:queryHint="note name"></SearchView>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="130dp"
+        android:text="Jardin Festif"
+        android:textColor="#6222E2"
+        android:textSize="40sp" />
 
-    <ListView
-        android:id="@+id/noteListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="3dp"
-        android:dividerHeight="3dp"
-        android:divider="@color/darkGray"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_getstarted"
+        android:layout_width="258dp"
+        android:layout_height="91dp"
+        android:layout_below="@+id/jardin_festif"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="350dp"
+        android:background="@drawable/btn_getstarted"
+        android:text="Get started"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp" />
 
-</LinearLayout>
+
+</RelativeLayout>
